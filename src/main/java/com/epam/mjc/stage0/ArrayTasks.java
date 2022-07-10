@@ -124,21 +124,21 @@ public class ArrayTasks {
      * arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
-        arr = sortOneDimensionalArraysByLength(arr);
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sortOneDimensionArrayByValue(arr[i]);
         }
-        return arr;
+        return sortOneDimensionalArraysByLength(arr);
     }
 
     private int[][] sortOneDimensionalArraysByLength(int[][] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i].length > array[j].length) {
-                    int[] temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
+        //insertion sort
+        for (int i = 1; i < array.length; i++) {
+            int[] currentArray = array[i];
+            int previousKey = i - 1;
+            while (previousKey >= 0 && array[previousKey].length > currentArray.length) {
+                array[previousKey + 1] = array[previousKey];
+                array[previousKey] = currentArray;
+                previousKey--;
             }
         }
         return array;
